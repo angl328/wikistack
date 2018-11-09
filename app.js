@@ -5,11 +5,11 @@ const layout = require('./views/layout')
 const { User, Page } = require('./models');
 
 
+
 // db.authenticate().
 // then(() => {
 //   console.log('connected to the database');
 // })
-
 
 const app = express();
 
@@ -20,6 +20,13 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.get('/', (req, res) => {
   res.send(layout(''));
 })
+
+const syncAndRun = async () => {
+  await User.sync();
+  await Page.sync();
+}
+
+syncAndRun();
 
 const PORT = 3000;
 
