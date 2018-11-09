@@ -6,41 +6,28 @@ const db = new Sequelize('postgres://localhost:5432/wikistack', {
 const User = db.define('user', {
     name: {
         type: Sequelize.STRING,
-        allowNull: false,
-        validate: {
-            notEmpty: true,
-        }
     },
     email: {
         type: Sequelize.STRING,
-        allowNull: false,
-        validate: {
-            isEmail: true,
-        } 
     }
 })
 
 const Page = db.define('page', {
     title: {
         type: Sequelize.STRING,
-        allowNull: false,
-        validate: {
-            notEmpty: true,
-        }},
+       },
     
     slug: {
         type: Sequelize.STRING,
-        allowNull: false,
-        validate: {
-            notEmpty: true,
-        }},
+        transform: function generateSlug (title) {
+            return title.replace(/\s+/g, '_').replace(/\W/g, '');
+          }
+    },
+
 
     content: {
         type: Sequelize.TEXT,
-        allowNull: false,
-        validate: {
-            notEmpty: true,
-        }},
+       },
 
     status: {
         type: Sequelize.ENUM('open', 'closed'),
