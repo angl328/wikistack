@@ -22,7 +22,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use('/wiki', wikiRouter);
 app.use('/user', userRouter);
 
-app.get('/', (req, res) => {
+app.get('/', (req, res, next) => {
   res.redirect('/wiki')
 })
 
